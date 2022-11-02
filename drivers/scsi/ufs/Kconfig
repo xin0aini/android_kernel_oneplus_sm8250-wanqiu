@@ -206,3 +206,15 @@ config UFSHID_POC
 	3. set flag bDefragOperation
 	4. debug msg enable (default : disable)
 #endif /*OPLUS_FEATURE_UFSPLUS*/
+
+config SCSI_UFS_FBO
+	bool "Support UFS File-based Optimization"
+	depends on SCSI_UFSHCD
+	help
+	  The UFS FBO feature improves sequential read performance. The host send
+	  the LBA info to device first. And then instrut the device to analyse the
+	  LBA fragment info. After the analysis, the host can instruct the device to
+	  return the LBA's fragmented state. Then the host can decide whether to
+	  optimize based on the fragmentation status. After the	defragmentation is
+	  concluded, it is expected that the sequential read performance will be
+	  improved.

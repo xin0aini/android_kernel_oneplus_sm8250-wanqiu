@@ -50,6 +50,7 @@
 #include "ufs-sysfs.h"
 #include "ufs-debugfs.h"
 #include "ufs-qcom.h"
+#include "ufsfbo.h"
 
 static bool ufshcd_wb_sup(struct ufs_hba *hba);
 static int ufshcd_wb_ctrl(struct ufs_hba *hba, bool enable);
@@ -8960,6 +8961,8 @@ static int ufs_get_device_desc(struct ufs_hba *hba,
 	u8 *desc_buf;
 	u32 d_lu_wb_buf_alloc;
 
+	ufsfbo_probe(hba, desc_buf);
+
 	buff_len = max_t(size_t, hba->desc_size.dev_desc,
 			 QUERY_DESC_MAX_SIZE + 1);
 	desc_buf = kmalloc(buff_len, GFP_KERNEL);
@@ -11485,6 +11488,7 @@ void ufshcd_remove(struct ufs_hba *hba)
 /* add unipro statistic information */
 	remove_signal_quality_proc(&hba->signalCtrl);
 #endif
+	ufsfbo_remove(hba);
 	ufs_sysfs_remove_nodes(hba->dev);
 	scsi_remove_host(hba->host);
 	/* disable interrupts */

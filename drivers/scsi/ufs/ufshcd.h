@@ -855,6 +855,7 @@ struct ufs_transmission_status_t
  * @ksm: the keyslot manager tied to this hba
  */
 struct ufs_hba {
+	struct ufsfbo_ctrl *fbo_ctrl;
 	void __iomem *mmio_base;
 
 	/* Virtual memory reference */
