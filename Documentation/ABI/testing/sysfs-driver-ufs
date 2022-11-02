@@ -948,3 +948,67 @@ Description:	This file shows the alignment requirement of UFS file-based
 		specifications - FBO extension.
 
 		The file is read only.
+
+What:		/sys/class/scsi_device/*/device/fbo_dev_ctrl/fbo_support
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file shows the support state of UFS file-based optimization.
+
+		The file is read only.
+
+What:		/sys/class/scsi_device/*/device/fbo_dev_ctrl/fbo_prog_state
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file shows the state of UFS file-based optimization. The
+		current driver implementation supports 5 states:
+
+		==  ====================================================
+		0h   UFS FBO progress state is idle
+		1h   UFS FBO progress state is on-going
+		2h   UFS FBO progress state is complete analysis
+		3h   UFS FBO progress state is complete optimization
+		FF   UFS FBO progress state is general error
+		==  ====================================================
+		The file is read only.
+
+What:		/sys/class/scsi_device/*/device/fbo_dev_ctrl/fbo_operation_ctrl
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file controls the operation of UFS file-based optimization.
+		Echo different value to this file to make device perform different funcs.
+		The value are as follows
+		==  ==============================================================
+		0h   Device shall stop FBO analysis and FBO optimization operation
+		1h   Start FBO analysis based on the current LBA range
+		2h   Start FBO optimization based on the current LBA range
+		==  ==============================================================
+		The file is write only.
+
+What:		/sys/class/scsi_device/*/device/fbo_dev_ctrl/fbo_exe_threshold
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file shows and sets the execute level of UFS file-based
+		optimization. It means the device will do optimization operation for
+		the ranges which fragment level equal or greater than this value .The
+		value ranges from 0x0 to 0xA.
+
+What:		/sys/class/scsi_device/*/device/fbo_dev_ctrl/fbo_send_lba
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file provides an interface for host to send LBA ranges to
+		the device for UFS file-based optimization. First, we obtain the iNode
+		info of the file, which can be used to find out the corresponding block
+		address of the file, then add the offset of each partition to obtain the
+		LBA of the file. We can send LBA info to the device as a comma separated
+		string. Each adjacent pair represents a range:<open-lba>,<close-lba>.
+		e.g. The LBA range of the file is 0x1234,0x3456;0x4567,0x5678
+			echo 0x1234,0x3456,0x4567,0x5678 > fbo_send_lba
+
+		The file is write only.
+
+What:		/sys/class/scsi_device/*/device/fbo_dev_ctrl/fbo_lba_frag_state
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file provides an interface for host to obtain the LBA
+		ranges fragment state sent by read buffer command of UFS file-based
+		optimization. We should read this info when the FBO analysis is completed
