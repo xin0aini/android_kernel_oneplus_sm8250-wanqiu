@@ -548,6 +548,31 @@ static const struct attribute_group ufs_sysfs_health_descriptor_group = {
 	.attrs = ufs_sysfs_health_descriptor,
 };
 
+#define UFS_FBO_DESC_PARAM(_name, _uname, _size)			\
+	UFS_DESC_PARAM(_name, _uname, FBO, _size)
+
+UFS_FBO_DESC_PARAM(fbo_version, _VERSION, 2);
+UFS_FBO_DESC_PARAM(fbo_rec_lrs, _REC_LBA_RANGE_SIZE, 4);
+UFS_FBO_DESC_PARAM(fbo_max_lrs, _MAX_LBA_RANGE_SIZE, 4);
+UFS_FBO_DESC_PARAM(fbo_min_lrs, _MIN_LBA_RANGE_SIZE, 4);
+UFS_FBO_DESC_PARAM(fbo_max_lrc, _MAX_LBA_RANGE_CONUT, 1);
+UFS_FBO_DESC_PARAM(fbo_lra, _MAX_LBA_RANGE_ALIGNMENT, 2);
+
+static struct attribute *ufs_sysfs_fbo_descriptor[] = {
+	&dev_attr_fbo_version.attr,
+	&dev_attr_fbo_rec_lrs.attr,
+	&dev_attr_fbo_max_lrs.attr,
+	&dev_attr_fbo_min_lrs.attr,
+	&dev_attr_fbo_max_lrc.attr,
+	&dev_attr_fbo_lra.attr,
+	NULL,
+};
+
+static const struct attribute_group ufs_sysfs_fbo_descriptor_group = {
+	.name = "fbo_descriptor",
+	.attrs = ufs_sysfs_fbo_descriptor,
+};
+
 #define UFS_POWER_DESC_PARAM(_name, _uname, _index)			\
 static ssize_t _name##_index##_show(struct device *dev,			\
 	struct device_attribute *attr, char *buf)			\
@@ -843,6 +868,7 @@ static const struct attribute_group *ufs_sysfs_groups[] = {
 	&ufs_sysfs_interconnect_descriptor_group,
 	&ufs_sysfs_geometry_descriptor_group,
 	&ufs_sysfs_health_descriptor_group,
+	&ufs_sysfs_fbo_descriptor_group,
 	&ufs_sysfs_power_descriptor_group,
 	&ufs_sysfs_string_descriptors_group,
 	&ufs_sysfs_flags_group,

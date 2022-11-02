@@ -144,6 +144,7 @@ enum ufs_desc_def_size {
 	QUERY_DESC_GEOMETRY_DEF_SIZE	    = 0x59,
 	QUERY_DESC_POWER_DEF_SIZE		= 0x62,
 	QUERY_DESC_HEALTH_DEF_SIZE		= 0x25,
+	QUERY_DESC_IDN_FBO_DEF_SIZE		= 0xA,
 };
 
 /* Unit descriptor parameters offsets in bytes*/
@@ -298,6 +299,17 @@ enum health_desc_param {
 	HEALTH_DESC_PARAM_EOL_INFO		= 0x2,
 	HEALTH_DESC_PARAM_LIFE_TIME_EST_A	= 0x3,
 	HEALTH_DESC_PARAM_LIFE_TIME_EST_B	= 0x4,
+};
+
+/* File-based Optimization descriptor parameters offsets in bytes */
+enum fbo_desc_param {
+	FBO_DESC_PARAM_LEN			= 0x0,
+	FBO_DESC_PARAM_VERSION			= 0x1,
+	FBO_DESC_PARAM_REC_LBA_RANGE_SIZE	= 0x3,
+	FBO_DESC_PARAM_MAX_LBA_RANGE_SIZE	= 0x7,
+	FBO_DESC_PARAM_MIN_LBA_RANGE_SIZE	= 0xB,
+	FBO_DESC_PARAM_MAX_LBA_RANGE_CONUT	= 0xF,
+	FBO_DESC_PARAM_MAX_LBA_RANGE_ALIGNMENT	= 0x10,
 };
 
 /*
@@ -636,6 +648,7 @@ enum {
 /* Possible values for dExtendedUFSFeaturesSupport */
 enum {
 	UFS_DEV_WRITE_BOOSTER_SUP	= BIT(8),
+	UFS_DEV_FBO_SUP			= BIT(17),
 };
 
 struct ufs_dev_info {

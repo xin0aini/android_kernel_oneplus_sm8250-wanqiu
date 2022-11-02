@@ -883,3 +883,68 @@ Contact:	Subhash Jadavani <subhashj@codeaurora.org>
 Description:	This entry shows the target state of an UFS UIC link
 		for the chosen system power management level.
 		The file is read only.
+
+What:		/sys/bus/platform/drivers/ufshcd/*/fbo_descriptor/fbo_version
+What:		/sys/bus/platform/devices/*.ufs/fbo_descriptor/fbo_version
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file shows the version of UFS file-based optimization. This
+		is one of the UFS fbo descriptor parameters. The full information about
+		the descriptor could be found at UFS specifications - FBO extension.
+
+		The file is read only.
+
+What:		/sys/bus/platform/drivers/ufshcd/*/fbo_descriptor/fbo_rec_lrs
+What:		/sys/bus/platform/devices/*.ufs/fbo_descriptor/fbo_rec_lrs
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file shows the recommended LBA range size of UFS file-based
+		optimization to be used by the host. This is one of the UFS fbo descriptor
+		parameters. The full information about the descriptor could be found at UFS
+		specifications - FBO extension.
+
+		The file is read only.
+
+What:		/sys/bus/platform/drivers/ufshcd/*/fbo_descriptor/fbo_max_lrs
+What:		/sys/bus/platform/devices/*.ufs/fbo_descriptor/fbo_max_lrs
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file shows the max LBA range size of UFS file-based
+		optimization to be used by the host. This is one of the UFS fbo descriptor
+		parameters. The full information about the descriptor could be found at UFS
+		specifications - FBO extension.
+
+		The file is read only.
+
+What:		/sys/bus/platform/drivers/ufshcd/*/fbo_descriptor/fbo_min_lrs
+What:		/sys/bus/platform/devices/*.ufs/fbo_descriptor/fbo_min_lrs
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file shows the min LBA range size of UFS file-based
+		optimization to be used by the host. This is one of the UFS fbo descriptor
+		parameters. The full information about the descriptor could be found at UFS
+		specifications - FBO extension.
+
+		The file is read only.
+
+What:		/sys/bus/platform/drivers/ufshcd/*/fbo_descriptor/fbo_max_lrc
+What:		/sys/bus/platform/devices/*.ufs/fbo_descriptor/fbo_max_lrc
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file shows the max number of LBA ranges supported by read/write
+		buffer command of UFS file-based optimization. This is one of the UFS fbo
+		descriptor parameters. The full information about the descriptor could be
+		found at UFS specifications - FBO extension.
+
+		The file is read only.
+
+What:		/sys/bus/platform/drivers/ufshcd/*/fbo_descriptor/fbo_lra
+What:		/sys/bus/platform/devices/*.ufs/fbo_descriptor/fbo_lra
+Date:		November 2022
+Contact:	li jiaming <lijiaming3@xiaomi.com>
+Description:	This file shows the alignment requirement of UFS file-based
+		optimization. This is one of the UFS fbo descriptor parameters. The
+		full information about the descriptor could be found at UFS
+		specifications - FBO extension.
+
+		The file is read only.
