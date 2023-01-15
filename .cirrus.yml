@@ -1,0 +1,26 @@
+container:
+    image: ubuntu:latest
+    cpu: 8
+    memory: 8
+
+env:
+    CIRRUS_CLONE_DEPTH: 100
+
+build_kernel_task:
+  name: Build Kernel
+  install_script: |
+    apt update -y && apt install gcc-aarch64-linux-gnu sudo -y
+    sudo apt install gcc-arm-linux-gnueabi -y
+    sudo apt install binutils make python2 libssl-dev build-essential bc  bison flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs libxml2 -y
+    git clone https://codeberg.org/Mandi-Sa/clang --dept=1 -b amd64-kernel-arm
+
+  start_build_script: |
+        export PATH=$(pwd)/clang/bin/:$PATH
+        export ARCH=arm64
+        export SUBARCH=arm64
+        make O=out CC=clang vendor/kona-perf_defconfig ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- LLVM=1 LLVM_IAS=1
+        make O=out CC=clang -j8 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- LLVM=1 LLVM_IAS=1
+
+  output_artifacts:
+    path: "./out/arch/arm64/boot/Image.gz"
+  
