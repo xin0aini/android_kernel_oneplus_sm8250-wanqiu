@@ -1,5 +1,15 @@
 name: Build OnePluss-Sm8250-Kernel
-on: [push, pull_request]
+on:
+  workflow_dispatch:
+  schedule:
+      # Run once a week on Sunday at midnight. See http://crontab.guru
+      - cron: '0 21 * * *'
+  push:
+    branches:
+      - HEAD
+  pull_request:
+      branches:
+      - HEAD
 
 jobs:
   build:
@@ -15,6 +25,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
+        submodules: 'true'
         fetch-depth: 100
 
     - name: Set up ccache
