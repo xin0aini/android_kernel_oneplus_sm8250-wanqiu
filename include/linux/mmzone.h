@@ -178,6 +178,9 @@ enum zone_stat_item {
 #ifdef OPLUS_FEATURE_HEALTHINFO
         NR_IONCACHE_PAGES,
 #endif /* OPLUS_FEATURE_HEALTHINFO */
+#ifdef CONFIG_UKSM
+	NR_UKSM_ZERO_PAGES,
+#endif
 	NR_VM_ZONE_STAT_ITEMS };
 
 enum node_stat_item {
