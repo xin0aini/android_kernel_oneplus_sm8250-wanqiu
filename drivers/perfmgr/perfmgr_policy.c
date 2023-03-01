@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021, Xiaomi. All rights reserved.
  */
-#define DEBUG
+#define DEBUG 1
 #define pr_fmt(fmt) "perfmgr_policy: " fmt
 
 #include <linux/kernel.h>
@@ -244,9 +244,10 @@ static int cpu_policy_init(void)
 		}
 
 		cpufreq_dev = kzalloc(sizeof(*cpufreq_dev), GFP_KERNEL);
-		if (!cpufreq_dev)
+		if (!cpufreq_dev){
+			pr_err("skkk: Unable to alloc cpufreq_dev = %d", cpufreq_dev);
 			return -ENOMEM;
-
+}
 		cpufreq_dev->policy = policy;
 		cpufreq_dev->qos_req = req;
 
@@ -616,8 +617,10 @@ int perfmgr_policy_init(void)
                 __func__,cpu4_table_length,cpu7_table_length,max_freq_limit_level);
 
 	cpufreq_wq = alloc_workqueue("cpufreq_wq", WQ_HIGHPRI, 0);
-	if (!cpufreq_wq)
+	if (!cpufreq_wq){
+		pr_err("skkk: cpufreq_wq= %d", cpufreq_wq);
 		return -EFAULT;
+}
 	INIT_DELAYED_WORK(&maxfreq_release_work, do_maxfreq_release_work);
 
 	cpu_policy_init();

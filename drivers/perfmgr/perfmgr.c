@@ -3,7 +3,7 @@
  * Copyright (c) 2019 MediaTek Inc.
  */
 
-#define DEBUG
+#define DEBUG 1
 #define pr_fmt(fmt) "perfmgr_main: " fmt
 
 #include <linux/kthread.h>
