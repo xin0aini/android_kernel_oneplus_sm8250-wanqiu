@@ -42,6 +42,7 @@ static int jank_happened;
 int perfmgr_enable=0;
 module_param(perfmgr_enable, int, 0644);
 MODULE_PARM_DESC(perfmgr_enable, "perfmgr_enable");
+EXPORT_SYMBOL_GPL(perfmgr_enable);
 
 static int rescue_freq_level = 0;
 module_param(rescue_freq_level, int, 0644);
