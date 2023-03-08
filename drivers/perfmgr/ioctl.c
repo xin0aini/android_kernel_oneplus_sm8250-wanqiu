@@ -8,6 +8,9 @@
 
 #define TAG "PERF_IOCTL"
 
+struct _FPSGO_PACKAGE *msgKM = NULL;
+EXPORT_SYMBOL_GPL(msgKM);
+
 void (*fpsgo_notify_qudeq_fp)(int pid, unsigned long long identifier);
 EXPORT_SYMBOL_GPL(fpsgo_notify_qudeq_fp);
 void (*fpsgo_notify_connect_fp)(int pid,
@@ -46,8 +49,7 @@ static long device_ioctl(struct file *filp,
 {
 	ssize_t ret = 0;
 	int pwr_cmd = -1, value1 = -1, value2 = -1, pwr_pid = -1, pwr_fps = -1;
-	struct _FPSGO_PACKAGE *msgKM = NULL,
-			*msgUM = (struct _FPSGO_PACKAGE *)arg;
+	struct _FPSGO_PACKAGE *msgUM = (struct _FPSGO_PACKAGE *)arg;
 	struct _FPSGO_PACKAGE smsgKM;
 
 	msgKM = &smsgKM;

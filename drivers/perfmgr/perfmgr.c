@@ -3,7 +3,7 @@
  * Copyright (c) 2019 MediaTek Inc.
  */
 
-#define DEBUG 1
+#define DEBUG
 #define pr_fmt(fmt) "perfmgr_main: " fmt
 
 #include <linux/kthread.h>
@@ -248,6 +248,7 @@ int perfmgr_notify_qudeq_cb(int pid,unsigned long long identifier)
 		perfmgr_notify_connect(pid,identifier,1);
 	return 0;
 }
+EXPORT_SYMBOL_GPL(perfmgr_notify_qudeq_cb);
 
 static void perfmgr_notifer_wq_cb(struct work_struct *psWork)
 {
