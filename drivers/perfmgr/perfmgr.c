@@ -3,7 +3,7 @@
  * Copyright (c) 2019 MediaTek Inc.
  */
 
-#define DEBUG
+#define DEBUG	1
 #define pr_fmt(fmt) "perfmgr_main: " fmt
 
 #include <linux/kthread.h>
@@ -341,44 +341,9 @@ void perfmgr_notify_qudeq(int pid,unsigned long long identifier)
 }
 //add for feas perfmgr +}
 
-static int perfmgr_notify(struct notifier_block *nb,unsigned long mode, void *_unused)
-{
-	if (!perfmgr_enable)
-	return 1;
-
-	perfmgr_notify_qudeq_cb(1,1);
-	pr_info("notifier: perfmgr_notify! \n");        //回调处理函数
-	return 0;
-}
-
-static struct notifier_block perfmgr_nb = {
-	.notifier_call = perfmgr_notify,
-};
-
-static int perfmgr_notifier_init(void)
-{
-	pr_info("notifier: fpsgo_notify_connect_fp init !\n");
-	fpsgo_notify_connect_fp(0,1,1);
-	pr_info("notifier: fpsgo_notify_qudeq_fp init !\n");
-	fpsgo_notify_qudeq_fp(1,1);
-	pr_info("notifier: cpufreq_register_notifier !\n");
-	cpufreq_register_notifier(&perfmgr_nb,
-					 CPUFREQ_TRANSITION_NOTIFIER);   //注册notifier事件
-
-	return 0;
-}
-
-static void perfmgr_notifier_exit(void)
-{
-	pr_info("notifier: perfmgr_notifier_exit!\n");
-	cpufreq_unregister_notifier(&perfmgr_nb,
-					 CPUFREQ_TRANSITION_NOTIFIER);
-}
-
 
 static void __exit perfmgr_exit(void)
 {
-	perfmgr_notifier_exit();
 }
 
 
@@ -387,12 +352,7 @@ static int __init perfmgr_init(void)
 	int i;
 	int ret;
 
-	pr_debug("[FPSGO_CTRL] init\n");
-
-	// kfpsgo_tsk = kthread_create(kfpsgo, NULL, "kfps");
-	// if (kfpsgo_tsk == NULL)
-		// return -EFAULT;
-	// wake_up_process(kfpsgo_tsk);
+	pr_debug("[PERFMGR_CTRL] init\n");
 
 	fpsgo_notify_qudeq_fp = perfmgr_notify_qudeq;
 	fpsgo_notify_connect_fp = perfmgr_notify_connect;
@@ -403,11 +363,8 @@ static int __init perfmgr_init(void)
 		return -EFAULT;
 	mutex_init(&notify_lock);
 	mutex_init(&list_lock);
-	// INIT_WORK(&vpPush->sWork, perfmgr_notifer_wq_cb);
-	// queue_work(qbuffer_notifyworkqueue, &vpPush->sWork);
 	INIT_LIST_HEAD(&connected_buffer_list);
 	perfmgr_policy_init();
-	perfmgr_notifier_init();
 
 	return 0;
 }
