@@ -1,4 +1,4 @@
-name: Build OnePluss-Sm8250-Kernel
+name: Build OnePlus-Sm8250-Kernel
 on: [push, pull_request]
 
 jobs:
@@ -15,6 +15,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
+        submodules: 'true'
         fetch-depth: 100
 
     - name: Set up ccache
