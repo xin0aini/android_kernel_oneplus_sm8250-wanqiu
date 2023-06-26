@@ -12,6 +12,7 @@ build_kernel_task:
     apt update -y && apt install gcc-aarch64-linux-gnu sudo -y
     sudo apt install gcc-arm-linux-gnueabi -y
     sudo apt install binutils make python2 libssl-dev build-essential bc  bison flex unzip libssl-dev ca-certificates xz-utils mkbootimg cpio device-tree-compiler git git-lfs libxml2 -y
+    git submodule init && git submodule update --recursive
     git clone https://codeberg.org/Mandi-Sa/clang --dept=1 -b amd64-kernel-arm
 
   start_build_script: |
