@@ -114,6 +114,12 @@ config DOCKER
 
 	select NETFILTER_XT_MATCH_IPVS
 
+	# select NF_NAT_IPV6
+
+	# select NF_TARGET_MASQUERADE
+
+	select NETFILTER_XT_TARGET_CHECKSUM
+
 	select NF_NAT
 
 	select NF_NAT_NEEDED
