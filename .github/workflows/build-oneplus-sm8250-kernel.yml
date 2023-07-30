@@ -48,12 +48,11 @@ jobs:
 
     - name: Build Kernel
       run: |
-       export PATH=$(pwd)/clang/bin/:$PATH
-       export ARCH=arm64
-       export SUBARCH=arm64
-       make $KERNEL_CMDLINE $KERNEL_DEFCONFIG CC="ccache clang"
-       make $KERNEL_CMDLINE CC="ccache clang" -j$(nproc --all)
-       cp out/arch/arm64/boot/Image.gz AnyKernel3
+        curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
+        export PATH=$(pwd)/clang/bin/:$PATH
+        make $KERNEL_CMDLINE $KERNEL_DEFCONFIG CC="ccache clang"
+        make $KERNEL_CMDLINE CC="ccache clang" -j$(nproc --all)
+        cp out/arch/arm64/boot/Image.gz AnyKernel3
 
     - name: Upload Kernel
       uses: actions/upload-artifact@v3
